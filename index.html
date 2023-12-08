@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        button {
+            background-color: #e44d26;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+    <title>Simple To-Do List</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        taskInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && taskInput.value.trim() !== '') {
+                addTask(taskInput.value.trim());
+                taskInput.value = '';
+            }
+        });
+
+        function addTask(taskText) {
+            const li = document.createElement('li');
+            li.textContent = taskText;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function() {
+                li.remove();
+            };
+
+            const completeButton = document.createElement('button');
+            completeButton.textContent = 'Complete';
+            completeButton.onclick = function() {
+                li.classList.toggle('completed');
+            };
+
+            li.appendChild(deleteButton);
+            li.appendChild(completeButton);
+            taskList.appendChild(li);
+        }
+    </script>
+</body>
+</html>
